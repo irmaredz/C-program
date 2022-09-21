@@ -1,0 +1,67 @@
+/* Program unesenu rijec prevodi na "satrovacki"
+ Napomena: Suglasnikom smatram svako slovo/simbol koje nije samoglasnik i nije NULL
+znak
+ Pretpostavka: Unesena rijec nema slova razlicite velicine (program radi i u tom
+slucaju - ali za NPR: "Sarajevo", ispisuje "rajevoSa"
+ Program radi iskljucivo prema pravilima navedenim u tekstu */
+#include <stdio.h>
+#include <stdlib.h>
+void satrovacki(char *string);
+int main()
+{
+     int i;
+     char string[100];
+     printf("Unesite rijec (do 100 slova):\n");
+     i=0;
+     do
+     {
+        string[i++]=getchar();
+     }
+     while (string[i-1]!='\n' && i<100);
+     string[i-1]='\0';
+     satrovacki(string);
+     return 0;
+}
+
+void satrovacki(char *string){
+     int i,k,p;
+     char niz1[100],niz2[100];
+     i=0;
+     k=0;
+     /* Petlja - trazi prvu sekvencu suglasnik samoglasnik, a dotad sva slova ubacuje u
+    array niz1, koji predstavlja prvi slog */
+     while ( *string!='\0' && ( (*string==65 || *string==97 || *string==79 || *string==111 || *string *string==73 || *string==105 || *string==85 || *string==117 || *string=='\0')
+     ||
+     (*(string+1)!=65 && *(string+1)!=97 && *(string+1)!=79 && *(string+1) *(string+1)!=73 && *(string+1)!=105 && *(string+1)!=85 && *(string+1))
+     {
+        niz1[i++]=*string++;
+     }
+     if (*string!='\0')
+     {
+         niz1[i++]=*string++;
+         niz1[i++]=*string++; /* Ubacuje sekvencu suglasnik samoglasnik u prvi slog */
+         if ( /* Ako su sljedeca 2 slova suglasnici, prvo takoder ulazi u prvi slog */
+         (*string!=65 && *string!=97 && *string!=79 && *string!=111 && *string!=69
+        && *string!=101 && /* Slovo je suglasnik */
+         *string!=73 && *string!=105 && *string!=85 && *string!=117 && *string!='
+        \0')
+         && (*(string+1)!=65 && *(string+1)!=97 && *(string+1)!=79 && *(string+1)!=111 *(string+1)!=73 && *(string+1)!=105 && *(string+1)!=85 && *(string+1)!= 117 && *(string+1)!='\0')
+            niz1[i++]=*string++;
+         while (*string!='\0') niz2[k++]=*string++; /* Formira string od ostatka slova
+        iz rijeci */
+     }
+     niz1[i]='\0';
+     niz2[k]='\0';
+     /* Ispis ostatka rijeci */
+     for (p=0; p<k; p++)
+     {
+        printf("%c",niz2[p]);
+     }
+     /* Ispis pocetnog sloga (na kraju) */
+     for (p=0; p<i; p++)
+     {
+        printf("%c",niz1[p]);
+     }
+     printf("\n");
+     return 0;
+}

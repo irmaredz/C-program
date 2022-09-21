@@ -1,0 +1,56 @@
+/* Sortiranje slova iz unesenog stringa po abecedi
+ (Pravila sortiranja navodim primjerom:)
+ bBB?aAa --> AaaBBb?
+ Napomena: Slova i simboli izvan engleske abecede bit ce sortirani prema
+vrijednostima
+ svog ASCII koda (to ukljucuje i nasa slova sa afrikatima!), i ispisani
+tek
+ na kraju stringa */
+#include <stdio.h>
+#include <stdlib.h>
+void string_sort(char *string);
+
+int main(){
+     int i;
+     char string[100];
+     printf("Unesite string (do 100 slova):\n");
+     i=0;
+     do
+     {
+         string[i]=getchar();
+         i++;
+     }
+     while (string[i-1]!='\n' && i<100);
+     string[i-1]='\0';
+     string_sort(string);
+     return 0;
+}
+
+void string_sort(char *string){
+     int i,k,broj1,broj2;
+     char pomocno;
+     for (i=0; *(string+i)!='\0'; i++) {
+         for (k=i; *(string+k)!='\0'; k++) {
+             /* broj1 i broj2 odreduju prioritet slova: za 'A' - broj1/2=0; za 'a' -
+            broj1/2=1; za B - broj1/2=2,... */
+             if (*(string+i)>=65 && *(string+i)<=90) {broj1=(*(string+i)-65)*2;} else
+             if (*(string+i)>=97 && *(string+i)<=122) {broj1=(*(string+i)-97)*2+1;}
+            else
+             broj1=*(string+i)+1000;
+             if (*(string+k)>=65 && *(string+k)<=90) {broj2=(*(string+k)-65)*2;} else
+             if (*(string+k)>=97 && *(string+k)<=122) {broj2=(*(string+k)-97)*2+1;}
+            else
+             broj2=*(string+k)+1000;
+             if (broj1>broj2) {
+                 pomocno=*(string+i);
+                 *(string+i)=*(string+k);
+                *(string+k)=pomocno;
+             }
+         }
+     }
+     for (i=0; *(string+i)!='\0'; i++) {
+        printf("%c",*(string+i));
+     }
+     printf("\n");
+     return 0;
+}
