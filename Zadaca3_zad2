@@ -1,0 +1,75 @@
+/* Program racuna stepene cijelih brojeva, tako da su eksponenti pozitivni cijeli
+brojevi.
+ Napomena: Baze i eksponenti se unose u niz. Rijesiti kreiranjem odgovarajucih
+funkcija,
+ a bez koristenja bibliotecne funkcije pow i bez koristenja operacije mnozenja 2
+broja */
+
+#include <stdio.h>
+#include <stdlib.h>
+int stepen (int a, int n);
+int pomnozi (int br1, int br2);
+int main(){
+     int a[100],n[100],dim,i;
+     do {
+         printf("Unesite broj elemenata niza (cijeli broj od 1 do 100): ");
+         scanf ("%d",&dim);
+     } while (dim<=0 || dim>100);
+     dim--; printf("\n");
+     printf("Unesite baze u niz (cijeli brojevi): \n");
+     for (i=0; i<=dim; i++) {
+        scanf("%d",&a[i]);
+     }
+     printf("Unesite eksponente u niz (pozitivni cijeli brojevi): \n");
+     for (i=0; i<=dim; i++) {
+         scanf("%d",&n[i]);
+         if (n[i]<=0) {
+            printf("Eksponent mora biti pozitivan cijeli broj! \n");
+            i--;
+         }
+     }
+     printf("\n");
+     for (i=0; i<=dim; i++) {
+        stepen(a[i],n[i]);
+     }
+     printf("\n");
+     return 0;
+    }
+    /* Racuna i ispisuje rezultate stepenovanja brojeva */
+    int stepen(int a, int n) {
+     int i,br,br1,br2;
+     for (i=1; i<=n; i++) {
+         if (i==1) {br=a;}
+         else {
+             /* Ovo je blok naredbi gdje se vrsi mnozenje varijabilnog proizvoda i baze a
+        (br1*br2) */
+            br1=br; br2=a;
+            br=pomnozi(br1,br2);
+            }
+     }
+     printf("%d ",br);
+     return 0;
+}
+    
+    /* Mnozi dva broja i vraca rjesenje */
+int pomnozi (int br1, int br2) {
+     int predznak,k,br;
+     /* br1 i br2 svodim na pozitivne vrijednosti kako bih mogao da ih lakse pomnozim
+    */
+     if (br1>=0 && br2>=0) {
+        predznak=1;
+     } else
+     if (br1<=0 && br2<=0) {
+        predznak=1; br1=-br1; br2=-br2;
+     } else
+     if (br1>=0) {
+        predznak=-1; br2=-br2;
+     } else
+     if (br2>=0) {
+        predznak=-1; br1=-br1;
+     }
+     br=0;
+     for (k=1; k<=br2; k++) br+=br1;
+     if (predznak==-1) br=-br;
+     return (br);
+}

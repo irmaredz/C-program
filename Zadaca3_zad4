@@ -1,0 +1,52 @@
+/* Program za ispis racuna u nekoj prodavnici. Korisnik unosi po 3 broja: artikle
+(identifikovane
+preko sifre koja je pozitivan cijeli broj), kolicinu kupljenih artikala i cijenu.
+Nakon sto korisnik unese 0 (kao sifru artikla) poziva se funkcija koja na ekranu
+ispisuje racun. */
+#include <stdio.h>
+#include <stdlib.h>
+int racun (int arniz[50],int kolniz[50],float cjniz[50],int t);
+
+int main(){
+     float cjniz[50],cj;
+     int ar,kol,arniz[50],kolniz[50],t;
+     printf("Unosite po 3 broja: \n");
+     t=-1; /* t --> trenutni broj unesenih artikala, smanjen za 1 */
+     /* Korisnik moze unositi artikle sve dok ne ukuca 0 kao sifru artikla */
+     do {
+         printf("Sifra artikla (0 za kraj), kolicina, cijena: \n");
+         scanf("%d %d %f",&ar,&kol,&cj);
+         if (ar==0) break;
+         if (ar<0 || kol<=0 || cj<0) {
+            printf("Niste unijeli ispravne vrijednosti! \n");
+         }
+         else {
+             t++;
+             arniz[t]=ar; kolniz[t]=kol; cjniz[t]=cj; /* Vrijednosti su ispravne i
+            ucitavamo ih u nizove */
+             if (t>=49) break; /* Maksimalno je dozvoljeno unijeti 50 artikala */
+         }
+     } while (ar!=0);
+     racun (arniz,kolniz,cjniz,t);
+     return 0;
+}
+
+int racun (int arniz[50],int kolniz[50],float cjniz[50],int t) {
+     int i;
+     float ukupno,pdv,platiti;
+     ukupno=0;
+     printf("\n");
+     printf("Artikal Cijena Kol Uk. cijena \n");
+     printf("----------------------------------------------- \n");
+     for (i=0; i<=t; i++) {
+         printf("%-7d %12.2f KM %-5d %10.2f KM\n",arniz[i],cjniz[i],kolniz[i],kolniz[i]*cjniz[i]);
+         ukupno+=kolniz[i]*cjniz[i];
+     }
+     printf("----------------------------------------------- \n");
+    printf("UKUPNO BEZ PDV-a: %26.2f KM \n",ukupno);
+     pdv=(17.0/100)*ukupno;
+     platiti=pdv+ukupno;
+     printf("PDV (17%%): %33.2f KM \n\n",pdv);
+     printf("UKUPNO ZA PLATITI: %25.2f KM \n",platiti);
+     return 0;
+}

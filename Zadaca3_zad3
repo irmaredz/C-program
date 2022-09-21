@@ -1,0 +1,85 @@
+/* Program pronalazi i ispisuje razliku dva skupa cijelih brojeva A i B.
+ Korisnik odreduje broj elemenata i elemente po skupovima.
+ U ispisu razlike skupova nema jednakih elemenata! */
+#include <stdio.h>
+#include <stdlib.h>
+/* Argumenti funkcije razlika: (niz1, broj elemenata u nizu-1, niz2, broj elemenata u
+nizu-2 */
+
+int razlika (int niz1[100],int br1, int niz2[100],int br2);
+
+int main(){
+     int niz1[100],br1, niz2[100],br2, i;
+     do {
+        printf("Unesite broj elemenata skupa A (cijeli broj od 0 do 100): ");
+        scanf("%d",&br1);
+     } while (br1<0 || br1>100);
+     br1--;
+     for (i=0; i<=br1; i++) {
+        if (i==0) printf("Unesite elemente skupa A: \n");
+        scanf("%d",&niz1[i]);
+     }
+     do {
+         printf("Unesite broj elemenata skupa B (cijeli broj od 0 do 100): ");
+         scanf("%d",&br2);
+     } while (br2<0 || br2>100);
+     br2--;
+     for (i=0; i<=br2; i++) {
+        if (i==0) printf("Unesite elemente skupa B: \n");
+        scanf("%d",&niz2[i]);
+     }
+     razlika(niz1,br1,niz2,br2);
+     return 0;
+    }
+    
+int razlika (int niz1[100],int br1, int niz2[100],int br2) {
+     int i,k,postoji;
+     printf("\n");
+     if (br1<0 && br2>=0) { /* Za slucaj A-prazan, B-neprazan --> ispisujemo skup B */
+         for (i=0; i<=br2; i++) printf("%d ",niz2[i]);
+     } else
+     if (br1>=0 && br2<0) { /* Za slucaj B-prazan, A-neprazan --> ispisujemo skup A */
+        for (i=0; i<=br1; i++) printf("%d ",niz1[i]);
+     } else
+     if (br1>=0 && br2>=0) { /* Ako su A i B neprazni skupovi */
+     for (i=0; i<=br1; i++) { /* Trazimo elemente iz skupa A, koji ne pripadaju skupu B */
+            postoji=0;
+         for (k=i+1; k<=br1; k++) { /* Necemo da ispitujemo iste elemente iz A vise puta! */
+             if (niz1[i]==niz1[k]) {
+                postoji=1;
+                break;
+            }
+         }
+         if (!postoji) { /* Ispitujemo da li element iz A pripada i skupu B */
+         for (k=0; k<=br2; k++) {
+         if (niz1[i]==niz2[k]) {
+            postoji=1;
+            break;
+            }
+         }
+         if (!postoji) printf("%d ",niz1[i]);
+        }
+    }
+     for (i=0; i<=br2; i++) { /* Trazimo elemente iz skupa B, koji ne pripadaju skupu A */
+         postoji=0;
+         for (k=i+1; k<=br2; k++) { /* Necemo da ispitujemo iste elemente iz B vise
+        puta! */
+         if (niz2[i]==niz2[k]) {
+         postoji=1;
+         break;
+        }
+         }
+         if (!postoji) { /* Ispitujemo da li element iz B pripada i skupu A */
+             for (k=0; k<=br1; k++) {
+                 if (niz2[i]==niz1[k]) {
+                 postoji=1;
+                 break;
+                    }
+             }
+             if (!postoji) printf("%d ",niz2[i]);
+            }
+        }
+    }
+    printf("\n");
+    return 0;
+}
