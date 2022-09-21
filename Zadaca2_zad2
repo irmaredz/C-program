@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main(){
+     int niz[101],k,i,broj,brelem;
+     brelem=-1;
+     printf("Unesite elemente niza: ");
+     do {
+         scanf("%d",&broj);
+         if (broj>=1) {brelem++; niz[brelem]=broj;}
+         if (brelem>=99) break;
+     } while (broj!=-1);
+     printf("Unesite element koji treba izbaciti: ");
+     scanf("%d",&broj);
+     for (k=0; k<=brelem; k++) {
+        if (niz[k]==broj) {
+            for (i=k; i<=brelem; i++) {
+            niz[i]=niz[i+1]; 
+            niz[i+1]=0;
+            }
+        brelem--; 
+        k--;
+        }
+     }
+     printf("Novi niz glasi: ");
+     for (k=0; k<=brelem; k++) {
+        if (k<brelem) {printf("%d,",niz[k]);} else printf("%d",niz[k]);
+     }
+     return 0;
+}

@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+     int matrica[20][5],i,k,suma,brocj,max;
+     float prosjek[20];
+     max=20;
+     for (i=0; i<=max-1; i++) {
+        suma=0; brocj=0; prosjek[i]=0.0;
+            for (k=0; k<=4; k++) {
+                scanf("%d",&matrica[i][k]);
+                if (matrica[i][k]!=0 && k==0) {
+                    prosjek[i]=1.0;
+                } else {
+                     suma=suma+(k+1)*matrica[i][k];
+                     brocj=brocj+matrica[i][k];
+                 }
+            }
+        if (prosjek[i]!=1.0) {if (brocj!=0) prosjek[i]=1.0*suma/brocj;}
+     }
+     for (i=0; i<=max-1; i++) {
+        if (i<max-1) {printf ("%.2f, ",prosjek[i]);} else {printf ("%.2f",prosjek[i]);
+     }
+     return 0;
+}

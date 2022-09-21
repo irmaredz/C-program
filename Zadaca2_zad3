@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+int main(){
+     float x,suma,ekspon,d;
+     int i,n;
+     long fact;
+     do {
+        scanf("%f %d",&x,&n);
+     } while (n<1);
+     i=1; suma=1.0; fact=1; ekspon=1.0;
+     while (i<=n) {
+         ekspon=ekspon*x;
+         fact=fact*i;
+         suma=suma+1.0*ekspon/fact;
+         i++;
+     }
+     d=fabs(suma-exp(x));
+     if (d>0.1) {printf("VELIKA GRESKA");}
+     if (d>=0.01 && d<=0.1) {printf("SREDNJA GRESKA");}
+     if (d<0.01) {printf("MALA GRESKA");}
+     return 0;
+}
